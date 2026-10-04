@@ -84,7 +84,7 @@ es nach jedem einzelnen Schritt seine Schätzung $Q(s,a)$ ein Stück in Richtung
 )
 st.caption(
     "Drittes Stück der **Reinforcement-Learning-Linie** der \"Konzepte\"-Reihe: der Nachfolger von Value Iteration/Policy Iteration (Stück 2) - dasselbe Raster, aber jetzt ohne bekanntes Modell. **Bezug zur Bandit-Wurzel "
-    "(Stück 1):** dort gab es kein Zustand, nur eine Entscheidung; hier lernt derselbe Explore/Exploit-Gedanke (epsilon-gierig) eine ganze Politik über mehrere Zustände hinweg."
+    "(Stück 1):** dort gab es keinen Zustand, nur eine Entscheidung; hier lernt derselbe Explore/Exploit-Gedanke (epsilon-gierig) eine ganze Politik über mehrere Zustände hinweg."
 )
 
 with st.expander("So funktioniert Q-Learning", expanded=True):
@@ -191,7 +191,7 @@ mcols[3].metric("Value Iteration brauchte", f"{vi_backups:,}".replace(",", ".") 
 if a.gap < C.NEAR_OPTIMAL_GAP:
     st.success(f"✅ Die gelernte Policy erreicht (nahezu) den optimalen Wert (Abstand {de(a.gap, 3)}) - aber dafür {a.env_steps:,}".replace(",", ".") + f" Umgebungsschritte gegenüber {vi_backups:,}".replace(",", ".") + " Bellman-Backups von Value Iteration auf demselben Modell: **Nicht-Wissen kostet Erfahrung.**")
 elif a.gap > C.CLIFF_GAP_THRESHOLD:
-    st.error(f"❌ Die gelernte Policy ist katastrophal schlecht (Abstand {de(a.gap, 1)}) - vermutlich hat eine verrauschte Q-Schätzung eine Zelle direkt über der Klippe zur \"gierigen\" Wahl gemacht, statt ihr auszuweichen. Mit dieser Lernrate/diesem Seed passiert das messbar oft (siehe die Lernraten-Experiment und die Grenzen-Tabelle).")
+    st.error(f"❌ Die gelernte Policy ist katastrophal schlecht (Abstand {de(a.gap, 1)}) - vermutlich hat eine verrauschte Q-Schätzung eine Zelle direkt über der Klippe zur \"gierigen\" Wahl gemacht, statt ihr auszuweichen. Mit dieser Lernrate/diesem Seed passiert das messbar oft (siehe das Lernraten-Experiment und die Grenzen-Tabelle).")
 else:
     st.warning(f"⚠️ Die gelernte Policy ist brauchbar, aber noch spürbar suboptimal (Abstand {de(a.gap, 2)}) - oft, weil eine harmlos aussehende Gewohnheit (z. B. am Start gegen die Wand laufen statt aktiv von der Klippe wegzugehen) genauso billig aussieht wie die echte Optimalroute. Mehr Trainingsepisoden oder ein anderer Seed verändern das Ergebnis (Q-Learning ist stochastisch).")
 g1, g2 = st.columns(2)
@@ -217,7 +217,7 @@ if st.session_state.get("episodes_on"):
     st.plotly_chart(build_episodes_gap(ee, vi_b), width="stretch", key="episodes_chart")
     r_first, r_last = ee["rows"][0], ee["rows"][-1]
     st.warning(
-        f"**Befund:** Der Anteil nahezu optimaler Läufe bleibt über die gesamte gemessene Spanne bei etwa der Hälfte ({pct(r_first['frac_near_optimal'])} bei {r_first['episodes']} Episoden, {pct(r_last['frac_near_optimal'])} bei {r_last['episodes']} Episoden) - **mehr Training allein löst das nicht zuverlässig auf**, weil Epsilon inzwischen kaum noch erkundet und eine harmlos aussehende Gewohnheit (siehe Kernfrage) genauso billig geschätzt wird wie die echte Optimalroute. "
+        f"**Befund:** Der Anteil nahezu optimaler Läufe steigt über die gesamte gemessene Spanne nicht mit dem Training, er schwankt zwischen {pct(min(r['frac_near_optimal'] for r in ee['rows']))} und {pct(max(r['frac_near_optimal'] for r in ee['rows']))} ({pct(r_first['frac_near_optimal'])} bei {r_first['episodes']} Episoden, {pct(r_last['frac_near_optimal'])} bei {r_last['episodes']} Episoden) - **mehr Training allein löst das nicht zuverlässig auf**, weil Epsilon inzwischen kaum noch erkundet und eine harmlos aussehende Gewohnheit (siehe Kernfrage) genauso billig geschätzt wird wie die echte Optimalroute. "
         f"Selbst der teuerste Lauf braucht **{de(r_last['env_steps_mean']/vi_b,0)}× so viele** Umgebungsschritte wie Value Iteration Bellman-Backups auf demselben Modell - Q-Learning zahlt für sein Nicht-Wissen mit Erfahrung, nicht mit Rechenzeit."
     )
 
@@ -291,6 +291,6 @@ Implementiert in `ql_grid.py` (das Vehikel, `step` statt `build_model` für den 
 st.markdown("---")
 st.caption(
     "Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – "
-    "Operations Research und Machine Learning. Interesse an einer maßgeschneiderten Lösung für "
-    "Ihr Unternehmen? [Kontakt aufnehmen](https://sebastianhanisch.net/kontakt.html)"
+    "Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). "
+    "Mehr zur Reihe: [Reinforcement Learning: Bandit bis Actor-Critic](https://sebastianhanisch.net/konzepte-reinforcement-learning.html)."
 )

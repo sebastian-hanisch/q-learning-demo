@@ -106,7 +106,7 @@ def apply_preset(name):
 
 
 PRESET_HELP = {
-    "Standardfall": "4×8-Raster, Rutschen 0,10, α=0,10, Epsilon-Zerfall 0,005, 1500 Episoden: guter, aber nicht garantierter Kompromiss - die meisten Läufe landen nahe am Optimum, ein kleiner Teil bleibt spürbar schlechter.",
+    "Standardfall": "4×8-Raster, Rutschen 0,10, α=0,10, Epsilon-Zerfall 0,005, 1500 Episoden: guter, aber nicht garantierter Kompromiss - nur etwa 40 % der Läufe (8 von 20 Seeds) landen nahe am Optimum, der Rest bleibt spürbar schlechter.",
     "Zu wenig Training": "Nur 200 Episoden: die Q-Schätzung ist noch verrauscht - eine harmlos aussehende Gewohnheit (z. B. am Start gegen die Wand laufen) kann dabei genauso billig wirken wie die echte Optimalroute weg von der Klippe.",
     "Konstant explorativ (kein GLIE)": "Epsilon bleibt bei 1,0 (rein zufälliges Verhalten während des ganzen Trainings): Q-Learning ist off-policy und lernt trotzdem, aber deutlich langsamer, weil die Erfahrung nie auf die produktive Gegend um den optimalen Weg konzentriert wird.",
     "Hohe Lernrate": "α=0,50: jede neue Erfahrung überschreibt die Q-Schätzung fast vollständig statt sie zu mitteln - in seltenen Fällen wird dabei eine Zelle direkt über der Klippe zur \"gierigen\" Wahl, mit sehr teuren Ausreißern.",

@@ -181,7 +181,7 @@ st.markdown("---")
 # --- Kernfrage -------------------------------------------------------------------------------------------------------------------------------
 
 st.markdown("## 🎯 Konvergiert Q-Learning auf dieselbe Policy wie Value Iteration - zu welchem Preis?")
-reachable = [s for s in range(grid.n_states) if grid.rc_of(s) not in grid.cliff]
+reachable = [s for s in range(grid.n_states) if grid.rc_of(s) not in grid.cliff and grid.rc_of(s) != grid.goal]
 policy_match = float(np.mean(a.policy[reachable] == a.pi_star[reachable]))
 mcols = st.columns(4)
 mcols[0].metric("V*(Start), exakt (Value Iteration)", de(a.V_star[s0], 2))
@@ -201,7 +201,7 @@ with g1:
 with g2:
     st.markdown("##### Optimale Policy (Value Iteration, zum Vergleich)")
     st.plotly_chart(build_grid(grid, a.V_star, a.pi_star), width="stretch", key="ql_vi_grid")
-st.caption(f"Übereinstimmung der gierigen Aktion mit der optimalen Policy auf den erreichbaren Zellen (Klippenzellen ausgenommen): {pct(policy_match)}. Farbe/Zahl links: gelernter Schätzwert max Q(s,·); rechts: exakter V*(s).")
+st.caption(f"Übereinstimmung der gierigen Aktion mit der optimalen Policy auf den erreichbaren Zellen (Klippenzellen und Ziel ausgenommen, dort gibt es keine Entscheidung): {pct(policy_match)}. Farbe/Zahl links: gelernter Schätzwert max Q(s,·); rechts: exakter V*(s).")
 
 st.markdown("---")
 

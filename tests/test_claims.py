@@ -18,10 +18,11 @@ def test_standard_case():
     assert a.gap == pytest.approx(2.40, abs=0.02)
     assert a.V_pi[a.grid.state_of(a.grid.start)] == pytest.approx(-11.62, abs=0.02)
     assert a.env_steps == pytest.approx(52917, abs=200)
-    reachable = [s for s in range(a.grid.n_states) if a.grid.rc_of(s) not in a.grid.cliff]
+    reachable = [s for s in range(a.grid.n_states) if a.grid.rc_of(s) not in a.grid.cliff and a.grid.rc_of(s) != a.grid.goal]
     import numpy as np
     match = float(np.mean(a.policy[reachable] == a.pi_star[reachable]))
-    assert match == pytest.approx(0.962, abs=0.01)
+    assert len(reachable) == 25
+    assert match == pytest.approx(0.96, abs=0.005)
 
 
 def test_episodes_experiment():

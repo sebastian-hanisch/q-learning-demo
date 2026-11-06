@@ -82,6 +82,19 @@ wahrscheinlich ein Rutscher ist, noch was ihn eine Aktion erwartungsgemäß kost
 es nach jedem einzelnen Schritt seine Schätzung $Q(s,a)$ ein Stück in Richtung der beobachteten Belohnung plus der besten bekannten Folgeschätzung korrigiert. Alle Daten sind erzeugt; die Rechnung ist in numpy geschrieben.
 """
 )
+
+# erklaerseite:einfach:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/q-learning-erklaert.json, nicht von Hand ändern)
+with st.expander("💬 In einfachen Worten"):
+    st.markdown(
+        """
+Ein Lagerroboter soll auf einem Raster von der Startecke zur **Packstation** fahren. Entlang der unteren Reihe liegt eine **Klippe**, und der Boden ist glatt, sodass er manchmal seitlich rutscht. Der Roboter kennt weder das Raster noch die Rutschgefahr. Er sieht nur, was nach jedem Schritt passiert. **Q-Learning** führt für jede Position und Richtung eine Note und verschiebt sie nach jedem Schritt in Richtung dessen, was er erlebt hat, samt der besten Note der neuen Position.
+
+Beim Üben wählt er meist die Richtung mit der besten Note, manchmal zufällig, mit sinkendem Zufallsanteil. Zur Kontrolle rechnet die Demo die beste Route aus, die nur mit bekanntem Modell geht. Sie vergleicht, wie viel Erfahrung das Lernen kostet und wie nah die gelernte Route kommt. Drei Experimente fragen, was Trainingsdauer, Zufallsanteil und Lernrate ändern.
+
+[Ausführlich und verständlich erklärt, mit Fachteil](https://sebastianhanisch.net/q-learning-erklaert.html)
+        """
+    )
+# erklaerseite:einfach:end
 st.caption(
     "Drittes Stück der **Reinforcement-Learning-Linie** der \"Konzepte\"-Reihe: der Nachfolger von Value Iteration/Policy Iteration (Stück 2) - dasselbe Raster, aber jetzt ohne bekanntes Modell. **Bezug zur Bandit-Wurzel "
     "(Stück 1):** dort gab es keinen Zustand, nur eine Entscheidung; hier lernt derselbe Explore/Exploit-Gedanke (epsilon-gierig) eine ganze Politik über mehrere Zustände hinweg."
@@ -274,6 +287,24 @@ st.caption("Die Linie: Bandit → Value Iteration und Policy Iteration → **Q-L
 st.markdown("---")
 
 with st.expander("📐 Mathematische Formulierung"):
+    # erklaerseite:lesehilfe:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/q-learning-erklaert.json, nicht von Hand ändern)
+    st.markdown(
+        r"""
+**Lesehilfe.** Gegeben ist ein Raster mit Start, Ziel und Klippe, in dem jede gewählte Richtung mit der Rutsch-Wahrscheinlichkeit seitlich abweicht. Der Lernende sieht nur einzelne Übergänge, nie das Modell. Gesucht ist eine Tabelle $Q(s,a)$, deren gierige Aktion eine möglichst gute Policy ergibt.
+
+| Symbol | Bedeutung |
+|---|---|
+| $s$, $a$, $r$, $s'$ | Zustand, gewählte Aktion, erhaltene Belohnung, Folgezustand eines beobachteten Schritts |
+| $Q(s,a)$ | geschätzter Wert, in $s$ die Aktion $a$ zu wählen und danach gierig weiterzumachen |
+| $\alpha$ | Lernrate: Gewicht der neuen Beobachtung gegenüber der alten Schätzung |
+| $\gamma$ | Diskontfaktor für spätere Belohnungen |
+| $\varepsilon_e$ | Wahrscheinlichkeit einer zufälligen Aktion in Episode $e$ (epsilon-gierig) |
+| $V^*$, $V_\pi$ | Wert der optimalen bzw. der gelernten Policy $\pi$ (Maßstab: $V^*(\text{Start}) - V_\pi(\text{Start})$) |
+
+[Schritt für Schritt erklärt, mit Herleitung und Literatur](https://sebastianhanisch.net/q-learning-erklaert.html#fachleute)
+        """
+    )
+    # erklaerseite:lesehilfe:end
     st.markdown(
         r"""
 **Das Modell** ist identisch zu `value-iteration-demo` (Raster, Rutsch-Wahrscheinlichkeit, Rewards) - der Agent kennt es hier aber nicht; er sieht nur einzelne Übergänge $(s, a, r, s')$ aus `ql_grid.step`.

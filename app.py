@@ -97,7 +97,7 @@ Beim Üben wählt er meist die Richtung mit der besten Note, manchmal zufällig,
 # erklaerseite:einfach:end
 st.caption(
     "Drittes Stück der **Reinforcement-Learning-Linie** der \"Konzepte\"-Reihe: der Nachfolger von Value Iteration/Policy Iteration (Stück 2) - dasselbe Raster, aber jetzt ohne bekanntes Modell. **Bezug zur Bandit-Wurzel "
-    "(Stück 1):** dort gab es keinen Zustand, nur eine Entscheidung; hier lernt derselbe Explore/Exploit-Gedanke (epsilon-gierig) eine ganze Politik über mehrere Zustände hinweg."
+    "(Stück 1):** dort gab es keinen Zustand, nur eine Entscheidung; hier lernt derselbe Explore/Exploit-Gedanke (epsilon-gierig) eine ganze Policy über mehrere Zustände hinweg."
 )
 
 with st.expander("So funktioniert Q-Learning", expanded=True):
@@ -132,7 +132,7 @@ with st.sidebar:
     gamma = st.slider("Diskontfaktor γ", *bounds("gamma_slider"), key="gamma_slider", step=C.GAMMA_STEP, format="%.2f")
     st.markdown("**Das Lernen**")
     alpha = st.slider("Lernrate α", *bounds("alpha_slider"), key="alpha_slider", step=C.ALPHA_STEP, format="%.2f", help="Wie stark jede neue Erfahrung die bisherige Q-Schätzung überschreibt.")
-    eps0 = st.slider("Start-Epsilon", *bounds("epsilon_start_slider"), key="epsilon_start_slider", step=C.EPSILON_START_STEP, format="%.2f", help="Explorationsanteil zu Beginn des Trainings.")
+    eps0 = st.slider("Start-Epsilon", *bounds("epsilon_start_slider"), key="epsilon_start_slider", step=C.EPSILON_START_STEP, format="%.2f", help="Explorationsrate zu Beginn des Trainings.")
     decay = st.slider("Epsilon-Zerfall", *bounds("epsilon_decay_slider"), key="epsilon_decay_slider", step=C.EPSILON_DECAY_STEP, format="%.3f", help="0 = Epsilon bleibt konstant (kein GLIE); größer = schnelleres Abklingen Richtung reinem Ausnutzen.")
     episodes = st.slider("Trainingsepisoden", *bounds("episodes_slider"), key="episodes_slider", step=C.EPISODES_STEP, help="Wie viele vollständige Durchläufe (Start bis Ziel) der Agent trainiert.")
 
